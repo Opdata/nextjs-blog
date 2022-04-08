@@ -1,8 +1,32 @@
-import { useRouter } from 'next/router';
+import Layout from '../../components/layout';
 
-export default function post() {
-  const router = useRouter();
-  const id = router.query;
-  console.log(id);
-  return <h1>id post page.</h1>;
+import { getAllPostIds, getPostData } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const paths = getAllPostIds();
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const postData = getPostData(params.id);
+  return {
+    props: {
+      postData,
+    },
+  };
+}
+
+export default function Post({ postData }) {
+  return (
+    <Layout>
+      {postData.title}
+      <br />
+      {postData.id}
+      <br />
+      {postData.date}
+    </Layout>
+  );
 }
