@@ -1,6 +1,5 @@
 import Layout from '../../components/layout';
 import Head from 'next/head';
-import Date from '../../components/date';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import classes from '../../styles/utils.module.css';
 
@@ -29,9 +28,7 @@ export default function Post({ postData }) {
       </Head>
       <article>
         <h1 className={classes.headingXl}>{postData.title}</h1>
-        <div className={classes.lightText}>
-          <Date dateString={postData.date} />
-        </div>
+        <div className={classes.lightText}></div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
     </Layout>
